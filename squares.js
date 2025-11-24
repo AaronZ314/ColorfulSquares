@@ -1,12 +1,17 @@
+//made squareCount global so changeColor can work
+let squareCount = 0;
+
 window.onload=function(){
     var add=document.getElementById("add");
+    var colors=document.getElementById("colors");
     add.onclick = addSquare;
+    colors.onclick = changeColor;
 
-    //TODO: Make random color button work, make squares react to an onclick and make it come all the way in front of the screen
+    //TODO: make squares react to an onclick and make it come all the way in front of the screen
     //z index needed for second thing, higher brings it further up
 
     //picks from 1-50 squares to make
-    var squareCount = parseInt(Math.random()*21)+30;
+    squareCount = parseInt(Math.random()*21)+30;
 
     console.log(squareCount + "squares");
     
@@ -38,6 +43,11 @@ function addSquare(){
     squarearea.appendChild(newSquare);
 }
 
+// Change colors function that loops for every square present then sets the background
+// color as random 
 function changeColor(){
-    
+    const squaresAll = document.querySelectorAll(".square");
+    for (let i = 0; i < squareCount; i++) {
+        squaresAll[i].style.backgroundColor = getRandomColor();
+    }
 }
