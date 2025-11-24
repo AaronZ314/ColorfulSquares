@@ -47,19 +47,20 @@ function changeColor(){
     }
 }
 
+//make a large number for the z to be
 let highestZ = 1000;
 
 function editSquarePlacement(){
-    const currentZ = this.style.zIndex;
-    if(currentZ == highestZ)
-        {
+    //this will always be less than highestZ at the start
+    if(this.style.zIndex == highestZ) {
             console.log("square removed");
             this.remove();
             const squaresAll = document.querySelectorAll(".square");
             for(let i = 0;i<squaresAll.length; i++){
-                squaresAll[i].style.zIndex = highestZ;
+                squaresAll[i].style.zIndex = 1;
             }
         }
+    //this is so you can click squares overlapping each other over and over without issue
     highestZ++;
     this.style.zIndex = highestZ;
 }
