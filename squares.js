@@ -1,17 +1,11 @@
-//made squareCount global so changeColor can work
-let squareCount = 0;
-
 window.onload=function(){
     var add=document.getElementById("add");
     var colors=document.getElementById("colors");
     add.onclick = addSquare;
     colors.onclick = changeColor;
 
-    //TODO: make squares react to an onclick and make it come all the way in front of the screen
-    //z index needed for second thing, higher brings it further up
-
     //picks from 1-50 squares to make
-    squareCount = parseInt(Math.random()*21)+30;
+    var squareCount = parseInt(Math.random()*21)+30;
 
     console.log(squareCount + "squares");
     
@@ -40,14 +34,32 @@ function addSquare(){
     newSquare.style.left = parseInt(Math.random()*646)+"px";
     newSquare.style.top = parseInt(Math.random()*246)+"px";
     newSquare.style.backgroundColor=getRandomColor();
+    //Make it so squares can be clicked
+    newSquare.onclick = editSquarePlacement;
     squarearea.appendChild(newSquare);
 }
 
-// Change colors function that loops for every square present then sets the background
-// color as random 
+// Change colors function that loops for every square present then sets the background color as random 
 function changeColor(){
     const squaresAll = document.querySelectorAll(".square");
-    for (let i = 0; i < squareCount; i++) {
+    for (let i = 0;i<squaresAll.length; i++) {
         squaresAll[i].style.backgroundColor = getRandomColor();
     }
+}
+
+let highestZ = 1000;
+
+function editSquarePlacement(){
+    const currentZ = this.style.zIndex;
+    if(currentZ == highestZ)
+        {
+            console.log("square removed");
+            this.remove();
+            const squaresAll = document.querySelectorAll(".square");
+            for(let i = 0;i<squaresAll.length; i++){
+                squaresAll[i].style.zIndex = highestZ;
+            }
+        }
+    highestZ++;
+    this.style.zIndex = highestZ;
 }
